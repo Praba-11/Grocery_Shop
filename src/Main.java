@@ -31,6 +31,10 @@ public class Main {
                     Unit unit = new Unit();
                     unit.execute(arrayOfCommands);
                 }
+                if (arrayOfCommands.get(0).equals("product")) {
+                    Product product = new Product();
+                    product.execute(arrayOfCommands);
+                }
             } else out("Invalid command, please try again.");
         }
     }
