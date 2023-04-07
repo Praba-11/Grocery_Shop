@@ -5,13 +5,15 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Connection connection = new ConnectionDB().getConnection();
+    public static String command;
+    public static String[] splitCommandsByComma;
+    public static void main(String[] args) {
         while (true) {
             System.out.print("> ");
             Scanner scanner = new Scanner(System.in);
-            String command = scanner.nextLine();
-            String[] splitCommandsByComma = command.split(",");
+            command = scanner.nextLine();
+            command = command.trim();
+            splitCommandsByComma = command.split(",");
             ArrayList arrayOfCommands = new ArrayList<>();
             for (int index = 0; index < splitCommandsByComma.length; index++) {
                 String trimmedCommand = splitCommandsByComma[index].trim();
@@ -19,12 +21,17 @@ public class Main {
                 if (index == 0) {
                     for (String cmd : splitCommandBySpaces)
                         arrayOfCommands.add(cmd);
-                }
-                else
+                } else
                     arrayOfCommands.add(trimmedCommand);
             }
-            System.out.println(arrayOfCommands);
 
+            // All commands for unit
+            if (command.lastIndexOf(",") != command.length() - 1) {
+                if (arrayOfCommands.get(0).equals("unit")) {
+                    Unit unit = new Unit();
+                    unit.execute(arrayOfCommands);
+                }
+            } else out("Invalid command, please try again.");
         }
     }
     public static void out(String output) {
