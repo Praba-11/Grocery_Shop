@@ -1,6 +1,8 @@
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 
-public class Product {
+public class Product extends Main {
     int id;
     String code;
     String name;
@@ -73,7 +75,18 @@ public class Product {
     public void setCostPrice(float costPrice) {
         this.costPrice = costPrice;
     }
-    public void execute(ArrayList arrayOfCommands) {
 
+    public void execute(ArrayList arrayOfCommands) {
+        String action = arrayOfCommands.get(1).toString();
+        Control control = new Control();
+        if (action.equals("create"))
+            control.productCreate(arrayOfCommands);
+        else if (action.equals("edit"))
+            control.productEdit(arrayOfCommands);
+        else if (action.equals("delete"))
+            control.productDelete(arrayOfCommands);
+        else if (action.equals("list"))
+            control.productList(arrayOfCommands);
+        else out("Invalid command, please try again.");
     }
 }
