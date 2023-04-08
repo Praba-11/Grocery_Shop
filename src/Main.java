@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class Main {
     public static String command;
     public static String[] splitCommandsByComma;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+
         while (true) {
             System.out.print("> ");
             Scanner scanner = new Scanner(System.in);

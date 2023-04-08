@@ -1,5 +1,6 @@
 import org.checkerframework.checker.units.qual.C;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Product extends Main {
@@ -76,7 +77,7 @@ public class Product extends Main {
         this.costPrice = costPrice;
     }
 
-    public void execute(ArrayList arrayOfCommands) {
+    public void execute(ArrayList arrayOfCommands) throws SQLException, ClassNotFoundException {
         String action = arrayOfCommands.get(1).toString();
         Manager manager = new Manager();
         if (action.equals("create"))

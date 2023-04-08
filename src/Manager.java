@@ -1,9 +1,9 @@
-import java.sql.SQLOutput;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Manager extends Main {
-    public void productCreate(ArrayList arrayOfCommands) {
+    public void productCreate(ArrayList arrayOfCommands) throws SQLException, ClassNotFoundException {
         if (arrayOfCommands.get(2).equals("help"))
             out("Create product using the following template\ncode, name, unit, type, price, stock\ncode - text, min - 2 - 6, mandatory\nname - text, min 3 - 30 char, mandatory\nunitcode - text, kg/l/piece/combo, mandatory\ntype - text, between enumerated values, mandatory\nprice - number, mandatory\nstock - number, default 0");
         else if (arrayOfCommands.size() == 7) {
@@ -14,7 +14,10 @@ public class Manager extends Main {
             product.setType(arrayOfCommands.get(5).toString());
             product.setCostPrice(Integer.parseInt(arrayOfCommands.get(6).toString()));
             // store created product in database
-
+            ConnectionDB connectionDB = new ConnectionDB();
+            String sql = "";
+            Statement statement = connectionDB.getConnection().createStatement();
+            statement.executeQuery(sql);
         }
         else out("Invalid command, please try again.");
     }
@@ -42,10 +45,10 @@ public class Manager extends Main {
             }
             if (flag == true)
                 // Edit product operation
+
                 System.out.println(Arrays.toString(productArrayEdited));
             else out("Invalid syntax.");
-        }
-        else out("Invalid command, please try again.");
+        } else out("Invalid command, please try again.");
     }
     public void productDelete(ArrayList arrayOfCommands) {
         String deleteProductWithId = arrayOfCommands.get(2).toString();
