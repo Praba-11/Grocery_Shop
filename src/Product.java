@@ -79,15 +79,15 @@ public class Product extends Main {
 
     public void execute(ArrayList arrayOfCommands) throws SQLException, ClassNotFoundException {
         String action = arrayOfCommands.get(1).toString();
-        Manager manager = new Manager();
+        ProductManager productManager = new ProductManager();
         if (action.equals("create"))
-            manager.productCreate(arrayOfCommands);
+            .createProduct(arrayOfCommands);
         else if (action.equals("edit"))
-            manager.productEdit(arrayOfCommands);
+            productManager.editProduct(arrayOfCommands);
         else if (action.equals("delete"))
-            manager.productDelete(arrayOfCommands);
+            productManager.deleteProduct(arrayOfCommands);
         else if (action.equals("list"))
-            manager.productList(arrayOfCommands);
+            productManager.listProduct(arrayOfCommands);
         else out("Invalid command, please try again.");
     }
 }

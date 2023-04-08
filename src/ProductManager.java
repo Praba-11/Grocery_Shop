@@ -2,27 +2,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Manager extends Main {
-    public void productCreate(ArrayList arrayOfCommands) throws SQLException, ClassNotFoundException {
-        if (arrayOfCommands.get(2).equals("help"))
-            out("Create product using the following template\ncode, name, unit, type, price, stock\ncode - text, min - 2 - 6, mandatory\nname - text, min 3 - 30 char, mandatory\nunitcode - text, kg/l/piece/combo, mandatory\ntype - text, between enumerated values, mandatory\nprice - number, mandatory\nstock - number, default 0");
-        else if (arrayOfCommands.size() == 7) {
-            Product product = new Product();
-            product.setCode(arrayOfCommands.get(2).toString());
-            product.setName(arrayOfCommands.get(3).toString());
-            product.setUnitCode(arrayOfCommands.get(4).toString());
-            product.setType(arrayOfCommands.get(5).toString());
-            product.setCostPrice(Integer.parseInt(arrayOfCommands.get(6).toString()));
-            // store created product in database
-            ConnectionDB connectionDB = new ConnectionDB();
-            String sql = "";
-            Statement statement = connectionDB.getConnection().createStatement();
-            statement.executeQuery(sql);
-        }
-        else out("Invalid command, please try again.");
-    }
+public class ProductManager extends Main {
 
-    public void productEdit(ArrayList arrayOfCommands) {
+    public void editProduct(ArrayList arrayOfCommands) {
         System.out.println(Arrays.toString(splitCommandsByComma));
         System.out.println(arrayOfCommands);
         if (arrayOfCommands.get(2).equals("help")) {
@@ -41,7 +23,7 @@ public class Manager extends Main {
                 if ((splitCommandByColon[0].equals("name") && splitCommandByColon[1].length() > 2 && splitCommandByColon[1].length() < 30) || (splitCommandByColon[0].equals("unitcode") && splitCommandByColon[1].length() < 5) || (splitCommandByColon[0].equals("type")) || (splitCommandByColon[0].equals("price"))) {
                     productArrayEdited[i].append(splitCommandByColon[1]);
                     i = i + 1;
-                } else { flag = false; break;}
+                } else { flag = false; break; }
             }
             if (flag == true)
                 // Edit product operation
@@ -50,12 +32,12 @@ public class Manager extends Main {
             else out("Invalid syntax.");
         } else out("Invalid command, please try again.");
     }
-    public void productDelete(ArrayList arrayOfCommands) {
+    public void deleteProduct(ArrayList arrayOfCommands) {
         String deleteProductWithId = arrayOfCommands.get(2).toString();
         // delete product using id
 
     }
-    public void productList(ArrayList arrayOfCommands) {
+    public void listProduct(ArrayList arrayOfCommands) {
 
     }
 }
