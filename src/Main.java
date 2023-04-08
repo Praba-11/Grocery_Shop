@@ -25,7 +25,6 @@ public class Main {
                     arrayOfCommands.add(trimmedCommand);
             }
 
-            // All commands for unit
             if (command.lastIndexOf(",") != command.length() - 1) {
                 if (arrayOfCommands.get(0).equals("unit")) {
                     Unit unit = new Unit();

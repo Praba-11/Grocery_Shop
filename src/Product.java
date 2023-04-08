@@ -78,15 +78,15 @@ public class Product extends Main {
 
     public void execute(ArrayList arrayOfCommands) {
         String action = arrayOfCommands.get(1).toString();
-        Control control = new Control();
+        Manager manager = new Manager();
         if (action.equals("create"))
-            control.productCreate(arrayOfCommands);
+            manager.productCreate(arrayOfCommands);
         else if (action.equals("edit"))
-            control.productEdit(arrayOfCommands);
+            manager.productEdit(arrayOfCommands);
         else if (action.equals("delete"))
-            control.productDelete(arrayOfCommands);
+            manager.productDelete(arrayOfCommands);
         else if (action.equals("list"))
-            control.productList(arrayOfCommands);
+            manager.productList(arrayOfCommands);
         else out("Invalid command, please try again.");
     }
 }
