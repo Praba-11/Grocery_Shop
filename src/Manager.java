@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
+public class Manager {
     public static String command;
     public static String[] splitCommandsByComma;
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -25,14 +25,13 @@ public class Main {
                 } else
                     arrayOfCommands.add(trimmedCommand);
             }
-
+            UnitManager unitManager = new UnitManager();
+            ProductManager productManager = new ProductManager();
             if (command.lastIndexOf(",") != command.length() - 1) {
                 if (arrayOfCommands.get(0).equals("unit")) {
-                    Unit unit = new Unit();
-                    unit.execute(arrayOfCommands);
+                    unitManager.execute(arrayOfCommands);
                 }
                 else if (arrayOfCommands.get(0).equals("product")) {
-                    ProductManager productManager = new ProductManager();
                     productManager.execute(arrayOfCommands);
                 }
                 else out("Invalid command, please try again.");

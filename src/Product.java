@@ -3,7 +3,7 @@ import org.checkerframework.checker.units.qual.C;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Product extends Main {
+public class Product {
     int id;
     String code;
     String name;
