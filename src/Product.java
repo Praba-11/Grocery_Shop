@@ -77,17 +77,4 @@ public class Product extends Main {
         this.costPrice = costPrice;
     }
 
-    public void execute(ArrayList arrayOfCommands) throws SQLException, ClassNotFoundException {
-        String action = arrayOfCommands.get(1).toString();
-        ProductManager productManager = new ProductManager();
-        if (action.equals("create"))
-            .createProduct(arrayOfCommands);
-        else if (action.equals("edit"))
-            productManager.editProduct(arrayOfCommands);
-        else if (action.equals("delete"))
-            productManager.deleteProduct(arrayOfCommands);
-        else if (action.equals("list"))
-            productManager.listProduct(arrayOfCommands);
-        else out("Invalid command, please try again.");
-    }
 }

@@ -32,8 +32,8 @@ public class Main {
                     unit.execute(arrayOfCommands);
                 }
                 else if (arrayOfCommands.get(0).equals("product")) {
-                    Product product = new Product();
-                    product.execute(arrayOfCommands);
+                    ProductManager productManager = new ProductManager();
+                    productManager.execute(arrayOfCommands);
                 }
                 else out("Invalid command, please try again.");
             } else out("Invalid command, please try again.");
