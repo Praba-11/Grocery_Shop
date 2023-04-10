@@ -7,38 +7,48 @@ import java.util.Scanner;
 public class Manager {
     public static String command;
     public static String[] splitCommandsByComma;
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         while (true) {
-            System.out.print("> ");
-            Scanner scanner = new Scanner(System.in);
-            command = scanner.nextLine();
-            command = command.trim();
-            splitCommandsByComma = command.split(",");
+
             ArrayList arrayOfCommands = new ArrayList<>();
-            for (int index = 0; index < splitCommandsByComma.length; index++) {
-                String trimmedCommand = splitCommandsByComma[index].trim();
-                String[] splitCommandBySpaces = splitCommandsByComma[0].split("\\s+");
-                if (index == 0) {
-                    for (String cmd : splitCommandBySpaces)
-                        arrayOfCommands.add(cmd);
-                } else
-                    arrayOfCommands.add(trimmedCommand);
-            }
+            command(arrayOfCommands);
+
             UnitManager unitManager = new UnitManager();
             ProductManager productManager = new ProductManager();
+
             if (command.lastIndexOf(",") != command.length() - 1) {
-                if (arrayOfCommands.get(0).equals("unit")) {
-                    unitManager.execute(arrayOfCommands);
+                String choice = arrayOfCommands.get(0).toString();
+                switch (choice) {
+                    case "unit": unitManager.execute(arrayOfCommands); break;
+                    case "product": productManager.execute(arrayOfCommands); break;
+                    default: out("Invalid command, please try again."); break;
                 }
-                else if (arrayOfCommands.get(0).equals("product")) {
-                    productManager.execute(arrayOfCommands);
-                }
-                else out("Invalid command, please try again.");
             } else out("Invalid command, please try again.");
         }
     }
+
     public static void out(String output) {
         System.out.println(">> " + output);
+    }
+
+    public static void command(ArrayList arrayOfCommands) {
+        System.out.print("> ");
+        Scanner scanner = new Scanner(System.in);
+        command = scanner.nextLine();
+        command = command.trim();
+        splitCommandsByComma = command.split(",");
+        for (int index = 0; index < splitCommandsByComma.length; index++) {
+            String trimmedCommand = splitCommandsByComma[index].trim();
+            System.out.println(trimmedCommand);
+            String[] splitCommandBySpaces = splitCommandsByComma[0].split("\\s+");
+            if (index == 0) {
+                for (String cmd : splitCommandBySpaces)
+                    arrayOfCommands.add(cmd);
+            } else
+                arrayOfCommands.add(trimmedCommand);
+        }
+        System.out.println(arrayOfCommands);
     }
 }

@@ -35,4 +35,11 @@ public class UnitBuilder extends Manager implements UnitAction {
         else
             out("Invalid command, please try again.");
     }
+
+    @Override
+    public void edit(ArrayList arrayOfCommands) {
+
+    }
+
+
 }

@@ -41,9 +41,6 @@ public class ProductBuilder extends Manager implements ProductAction {
     @Override
     public void edit(ArrayList arrayOfCommands) {
 
-        System.out.println(Arrays.toString(splitCommandsByComma));
-        System.out.println(arrayOfCommands);
-
         if (arrayOfCommands.get(2).equals("help")) {
             out("Edit product using following template. Copy the product data from the list, edit the attribute values.\nid: <id - 6>, name: <name-edited>, unitcode: <unitcode>,  type: <type>, price: <price>");
             out("You can also restrict the product data by editable attributes. Id attribute is mandatory for all the edit operation.\nid: <id - 6>, name: <name-edited>, unitcode: <unitcode-edited>");
@@ -57,17 +54,17 @@ public class ProductBuilder extends Manager implements ProductAction {
             for (int index = 4; index < 8; index++) {
                 productArrayEdited[i] = new StringBuilder();
                 String[] splitCommandByColon = arrayOfCommands.get(index).toString().replaceAll("\\s+", "").split(":");
-                System.out.println(Arrays.toString(splitCommandByColon));
                 if ((splitCommandByColon[0].equals("name") && splitCommandByColon[1].length() > 2 && splitCommandByColon[1].length() < 30) || (splitCommandByColon[0].equals("unitcode") && splitCommandByColon[1].length() < 5) || (splitCommandByColon[0].equals("type")) || (splitCommandByColon[0].equals("price"))) {
                     productArrayEdited[i].append(splitCommandByColon[1]);
                     i = i + 1;
                 }
                 else { flag = false; break; }
             }
-            if (flag == true)
+            if (flag == true) {
                 // Edit product operation
-
                 System.out.println(Arrays.toString(productArrayEdited));
+                System.out.println(productArrayEdited[0]);
+            }
             else out("Invalid syntax.");
         }
 
