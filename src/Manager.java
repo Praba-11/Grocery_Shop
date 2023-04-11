@@ -41,14 +41,18 @@ public class Manager {
         splitCommandsByComma = command.split(",");
         for (int index = 0; index < splitCommandsByComma.length; index++) {
             String trimmedCommand = splitCommandsByComma[index].trim();
-            System.out.println(trimmedCommand);
             String[] splitCommandBySpaces = splitCommandsByComma[0].split("\\s+");
+            int flag = 0;
             if (index == 0) {
-                for (String cmd : splitCommandBySpaces)
-                    arrayOfCommands.add(cmd);
-            } else
-                arrayOfCommands.add(trimmedCommand);
+                for (String cmd : splitCommandBySpaces) {
+                    if (flag == 2) {
+                        String[] str = cmd.split(":");
+                        for (String string : str) arrayOfCommands.add(string);
+                    }
+                    else arrayOfCommands.add(cmd);
+                    flag++;
+                }
+            } else arrayOfCommands.add(trimmedCommand);
         }
-        System.out.println(arrayOfCommands);
     }
 }

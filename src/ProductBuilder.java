@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class ProductBuilder extends Manager implements ProductAction {
     }
 
     @Override
-    public void edit(ArrayList arrayOfCommands) {
+    public void edit(ArrayList arrayOfCommands) throws SQLException, ClassNotFoundException {
 
         if (arrayOfCommands.get(2).equals("help")) {
             out("Edit product using following template. Copy the product data from the list, edit the attribute values.\nid: <id - 6>, name: <name-edited>, unitcode: <unitcode>,  type: <type>, price: <price>");
@@ -48,26 +49,41 @@ public class ProductBuilder extends Manager implements ProductAction {
         }
 
         else if (splitCommandsByComma.length == 5 && arrayOfCommands.size() == 8) {
-            StringBuilder[] productArrayEdited = new StringBuilder[4];
+            ArrayList productArrayEdited = new ArrayList<>();
+            productArrayEdited.add(arrayOfCommands.get(2).toString());
+            productArrayEdited.add(Float.parseFloat(arrayOfCommands.get(3).toString()));
             boolean flag = true;
-            int i = 0;
             for (int index = 4; index < 8; index++) {
-                productArrayEdited[i] = new StringBuilder();
                 String[] splitCommandByColon = arrayOfCommands.get(index).toString().replaceAll("\\s+", "").split(":");
-                if ((splitCommandByColon[0].equals("name") && splitCommandByColon[1].length() > 2 && splitCommandByColon[1].length() < 30) || (splitCommandByColon[0].equals("unitcode") && splitCommandByColon[1].length() < 5) || (splitCommandByColon[0].equals("type")) || (splitCommandByColon[0].equals("price"))) {
-                    productArrayEdited[i].append(splitCommandByColon[1]);
-                    i = i + 1;
+                if ((splitCommandByColon[0].equals("name") && splitCommandByColon[1].length() > 2 && splitCommandByColon[1].length() < 30) || (splitCommandByColon[0].equals("unitcode") && splitCommandByColon[1].length() < 5) || (splitCommandByColon[0].equals("type"))) {
+                    productArrayEdited.add(splitCommandByColon[0]);
+                    productArrayEdited.add(splitCommandByColon[1]);
+                }
+                else if (splitCommandByColon[0].equals("price")) {
+                    productArrayEdited.add(splitCommandByColon[0]);
+                    productArrayEdited.add(Integer.parseInt(splitCommandByColon[1]));
                 }
                 else { flag = false; break; }
             }
             if (flag == true) {
-                // Edit product operation
-                System.out.println(Arrays.toString(productArrayEdited));
-                System.out.println(productArrayEdited[0]);
+                int size = productArrayEdited.size();
+                ConnectionDB connectionDB = new ConnectionDB();
+                // Edit product in Database
+                editDatabase(productArrayEdited, size);
+                if (productArrayEdited.size() == 4) {
+                    String sql = "UPDATE products SET ? = ?";
+                    PreparedStatement preparedStatement = connectionDB.getConnection().prepareStatement(sql);
+
+                }
+
             }
-            else out("Invalid syntax.");
+            else out("Invalid syntax, please try again.");
         }
 
         else out("Invalid command, please try again.");
+    }
+
+    void editDatabase(ArrayList productArrayEdited, int size) {
+
     }
 }
